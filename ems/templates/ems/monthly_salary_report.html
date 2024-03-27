@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h5 class="text-center mt-3">Monthly Salary Report for {{ employee.name }}</h5>
+
+
+<div class="container card p-5 mt-3">
+<table class="table table-sm mt-2">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Basic Salary</th>
+      <th>Allowances</th>
+      <th>Deductions</th>
+      <th>Net Pay</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for salary in salaries %}
+      <tr>
+        <td>{{ salary.year }}</td>
+        <td>{{ salary.get_month_display }}</td>  # Use get_month_display for month name
+        <td>{{ salary.basic_salary }}</td>
+        <td>{{ salary.allowances }}</td>
+        <td>{{ salary.deductions }}</td>
+        <td>{{ salary.net_pay }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="2">Total</th>
+        {% for year, total in yearly_totals.items %}
+          <td>{{ total }}</td>
+        {% endfor %}
+      </tr>
+    </tfoot>
+</table>
+</div>
+
+{% comment %} <p>Monthly Totals:</p>
+<ul>
+  {% for total in monthly_totals %}
+    <li>{{ total }}</li>
+  {% endfor %}
+</ul> {% endcomment %}
+{% endblock content %}
